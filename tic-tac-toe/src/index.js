@@ -18,6 +18,16 @@ function GameStatus(props) {
   );
 }
 
+function GameControler(props) {
+  return (
+    <div className="game-controller">
+      <button className="action-button" onClick={props.onControllerClick}>
+        New Game
+      </button>
+    </div>
+  );
+}
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +45,12 @@ class Board extends React.Component {
     this.setState({
       squares: squares,
       xIsNext: !this.state.xIsNext,
+    });
+  }
+  resetGame() {
+    this.setState({
+      squares: Array(9).fill(null),
+      xIsNext: true,
     });
   }
   renderSquare(i) {
@@ -73,6 +89,7 @@ class Board extends React.Component {
           {this.renderSquare(8)}
         </div>
         <GameStatus className="status" value={status} />
+        <GameControler onControllerClick={() => this.resetGame()} />
       </div>
     );
   }
